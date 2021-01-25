@@ -1,10 +1,11 @@
 package run.halo.app.utils;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import run.halo.app.model.support.HaloConst;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author ryanwang
@@ -26,20 +27,10 @@ class VersionUtilTest {
     void unknownVersionCompareTest() {
         // build a random version
         String randomVersion = String.join(".",
-                RandomStringUtils.randomNumeric(1),
-                RandomStringUtils.randomNumeric(2),
-                RandomStringUtils.randomNumeric(3));
-        assertFalse(VersionUtil.compareVersion(HaloConst.UNKNOWN_VERSION, randomVersion));
+            RandomStringUtils.randomNumeric(1),
+            RandomStringUtils.randomNumeric(2),
+            RandomStringUtils.randomNumeric(3));
+        assertTrue(VersionUtil.compareVersion(HaloConst.UNKNOWN_VERSION, randomVersion));
     }
 
-    @Test
-    void unknownOrEmptyCanonicalVersionTest() {
-        assertThrows(IllegalArgumentException.class, () -> VersionUtil.getCanonicalVersion(null));
-        int[] version = VersionUtil.getCanonicalVersion(HaloConst.UNKNOWN_VERSION);
-        assertNotNull(version);
-        assertEquals(4, version.length);
-        for (int v : version) {
-            assertEquals(Integer.MAX_VALUE, v);
-        }
-    }
 }
